@@ -2,17 +2,13 @@ const sequelize = require('../config/database');
 const User = require('./User');
 const Lesson = require('./Lesson');
 const Exam = require('./Exam');
-const Result = require('./Result');
-const Certificate = require('./Certificate');
-
-const bcrypt = require('bcryptjs');
-
 const initDB = async () => {
     try {
         await sequelize.sync({ alter: true });
         console.log('Database synced successfully.');
 
         // Seed Admin User if not exists
+        const bcrypt = require('bcryptjs'); // Lazy load
         const adminExists = await User.findOne({ where: { role: 'admin' } });
         if (!adminExists) {
             const hashedPassword = await bcrypt.hash('admin123', 10);
