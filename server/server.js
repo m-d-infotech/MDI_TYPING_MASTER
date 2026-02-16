@@ -31,18 +31,6 @@ const startServer = async () => {
     try {
         await initDB();
         
-        // Check if admin exists, if not create one
-        const adminExists = await User.findOne({ where: { role: 'admin' } });
-        if (!adminExists) {
-            const hashedPassword = await bcrypt.hash('admin123', 10);
-            await User.create({
-                username: 'admin',
-                password: hashedPassword,
-                role: 'admin'
-            });
-            console.log('Admin account created: admin / admin123');
-        }
-
         app.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
         });

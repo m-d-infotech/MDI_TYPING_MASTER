@@ -5,10 +5,24 @@ const Exam = require('./Exam');
 const Result = require('./Result');
 const Certificate = require('./Certificate');
 
+const bcrypt = require('bcryptjs');
+
 const initDB = async () => {
     try {
         await sequelize.sync({ alter: true });
         console.log('Database synced successfully.');
+
+        // Seed Admin User if not exists
+        const adminExists = await User.findOne({ where: { role: 'admin' } });
+        if (!adminExists) {
+            const hashedPassword = await bcrypt.hash('admin123', 10);
+            await User.create({
+                username: 'admin',
+                password: hashedPassword,
+                role: 'admin'
+            });
+            console.log('Admin account created: admin / admin123');
+        }
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
