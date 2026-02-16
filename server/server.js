@@ -39,6 +39,26 @@ const startServer = async () => {
     }
 };
 
+// Debug endpoint for Vercel troubleshooting
+app.get('/api/debug', async (req, res) => {
+    try {
+        const userCount = await User.count();
+        const adminUser = await User.findOne({ where: { role: 'admin' }, attributes: ['username', 'role'] });
+        res.json({
+            status: 'ok',
+            message: 'Database connected',
+            userCount,
+            adminUser: adminUser || 'Not found'
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: 'error',
+            message: 'Database connection failed',
+            error: error.message
+        });
+    }
+});
+
 // Only start server if run directly (locally)
 if (require.main === module) {
     startServer();
