@@ -2,6 +2,8 @@ const sequelize = require('../config/database');
 const User = require('./User');
 const Lesson = require('./Lesson');
 const Exam = require('./Exam');
+const Result = require('./Result');
+const Certificate = require('./Certificate');
 const initDB = async () => {
     try {
         await sequelize.sync({ alter: true });
