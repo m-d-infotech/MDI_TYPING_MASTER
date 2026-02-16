@@ -10,7 +10,15 @@
             "use": "@vercel/node"
         },
         {
+            "src": "server/api/health.js",
+            "use": "@vercel/node"
+        },
+        {
             "src": "server/api/test_db.js",
+            "use": "@vercel/node"
+        },
+        {
+            "src": "server/api/seed.js",
             "use": "@vercel/node"
         },
         {
@@ -29,6 +37,10 @@
         {
             "source": "/api/test_db",
             "destination": "/server/api/test_db.js"
+        },
+        {
+            "source": "/api/seed",
+            "destination": "/server/api/seed.js"
         },
         {
             "source": "/api/(.*)",
