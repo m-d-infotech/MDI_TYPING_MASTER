@@ -6,6 +6,14 @@
             "use": "@vercel/node"
         },
         {
+            "src": "server/api/health.js",
+            "use": "@vercel/node"
+        },
+        {
+            "src": "server/api/test_db.js",
+            "use": "@vercel/node"
+        },
+        {
             "src": "client/package.json",
             "use": "@vercel/static-build",
             "config": {
@@ -14,6 +22,14 @@
         }
     ],
     "rewrites": [
+        {
+            "source": "/api/health",
+            "destination": "/server/api/health.js"
+        },
+        {
+            "source": "/api/test_db",
+            "destination": "/server/api/test_db.js"
+        },
         {
             "source": "/api/(.*)",
             "destination": "/server/api/index.js"
