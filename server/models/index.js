@@ -25,6 +25,7 @@ const initDB = async () => {
         }
     } catch (error) {
         console.error('Unable to connect to the database:', error);
+        throw error; // Rethrow to ensure Vercel function fails or handles it
     }
 };
 
